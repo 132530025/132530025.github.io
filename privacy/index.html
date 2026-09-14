@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Privacy Policy — Miletos Studio</title>
+  <meta name="description" content="Privacy Policy for Miletos Studio, miletosstudio.com and the VeilForged Pin Automation app." />
+  <link rel="canonical" href="https://miletosstudio.com/privacy/" />
+  <style>
+    :root { --ink: #1c2430; --muted: #5b6573; --line: #e3e6ea; --bg: #fbfaf7; --accent: #1f4e79; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.7 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+    header, main, footer { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+    header { padding-block: 28px; border-bottom: 1px solid var(--line); }
+    header a { color: var(--ink); text-decoration: none; font-weight: 700; letter-spacing: .02em; }
+    main { padding-block: 32px 48px; }
+    h1 { font-size: clamp(1.8rem, 5vw, 2.4rem); line-height: 1.2; margin: 0 0 .25rem; }
+    h2 { font-size: 1.2rem; margin: 2.2rem 0 .5rem; }
+    p, li { margin: 0 0 .8rem; }
+    ul { padding-left: 1.2rem; }
+    a { color: var(--accent); }
+    code { background: #eef1f4; padding: .05rem .35rem; border-radius: 4px; font-size: .92em; }
+    .muted { color: var(--muted); font-size: .95rem; }
+    footer { padding-block: 24px 40px; border-top: 1px solid var(--line); color: var(--muted); font-size: .9rem; }
+  </style>
+</head>
+<body>
+  <header><a href="/">Miletos Studio</a></header>
+
+  <main>
+    <h1>Privacy Policy</h1>
+    <p class="muted">Last updated: 14 September 2026</p>
+
+    <h2>1. Who we are</h2>
+    <p>Miletos Studio ("we", "us") is operated by Recep Berkay Ünsal, an individual based in Türkiye.
+    Miletos Studio builds websites for small businesses and runs <strong>VeilForged</strong>, an independent
+    print-on-demand shop on Etsy.</p>
+    <p>Contact: <a href="mailto:info@miletosstudio.com">info@miletosstudio.com</a></p>
+
+    <h2>2. What this policy covers</h2>
+    <ul>
+      <li><strong>VeilForged Pin Automation</strong> ("the application") — our internal tool that publishes
+      VeilForged's own product images to our own Pinterest account.</li>
+      <li>The website <strong>miletosstudio.com</strong>.</li>
+    </ul>
+
+    <h2>3. What the application does</h2>
+    <p>The application is used only by us, for our own accounts. It is not offered to the public and has no other users.</p>
+    <ul>
+      <li>It reads the active listings of our own Etsy shop through the Etsy API: listing title, tags, listing URL and the
+      public product images.</li>
+      <li>About once per hour, it creates one Pin on our own Pinterest account with a title, a description, a product
+      image and a link back to the product page on Etsy.</li>
+      <li>It lists the boards on our Pinterest account, creates boards when a new product theme needs one, and chooses the
+      most relevant board for each Pin.</li>
+    </ul>
+
+    <h2>4. Pinterest data the application accesses</h2>
+    <p>The application connects to a single Pinterest account — our own — through Pinterest's official OAuth 2.0
+    authorization. It requests these permissions:</p>
+    <ul>
+      <li><code>user_accounts:read</code> — to confirm that the correct account is connected.</li>
+      <li><code>boards:read</code>, <code>boards:write</code> — to list the boards on our account and create new ones.</li>
+      <li><code>pins:read</code>, <code>pins:write</code> — to create Pins on our account and read them where needed,
+      for example to confirm that a Pin was published.</li>
+    </ul>
+    <p>The application never asks for Pinterest passwords or session cookies, and it never accesses, collects or stores
+    data about other Pinterest users.</p>
+
+    <h2>5. What we store</h2>
+    <ul>
+      <li><strong>OAuth access and refresh tokens</strong> issued by Pinterest. They are stored in a private GitHub
+      repository that only we can access, and in a local configuration file on our own computer. They are used only to call
+      the Pinterest API for our account and are never shared with anyone.</li>
+      <li><strong>Board mapping:</strong> the IDs and names of our own boards and which product goes to which board.</li>
+      <li><strong>Pin log:</strong> for each Pin — date and time, Etsy listing ID and title, image ID, board name, Pinterest
+      Pin ID and whether publishing succeeded. We use it to rotate images fairly and to fix errors.</li>
+    </ul>
+    <p>None of this contains personal data about other people.</p>
+
+    <h2>6. Services we use</h2>
+    <ul>
+      <li><strong>Etsy</strong> — source of our own product information.</li>
+      <li><strong>Pinterest</strong> — where the Pins are published.</li>
+      <li><strong>Anthropic (Claude API)</strong> — to write Pin titles and descriptions, choose a board, and detect size-chart
+      images that should not be pinned. For this we send product titles, tags, board names and the public URLs of product
+      images. We never send Pinterest tokens or Pinterest account data.</li>
+      <li><strong>Telegram</strong> — status and error messages sent to our own chat. They may include product titles and
+      board names, never tokens.</li>
+      <li><strong>GitHub</strong> — hosts the application's code, runs it on a schedule (GitHub Actions), stores the files
+      described in section 5, and hosts this website (GitHub Pages).</li>
+      <li><strong>Cloudflare</strong> — domain name, DNS and email forwarding for miletosstudio.com.</li>
+    </ul>
+
+    <h2>7. What we do not do</h2>
+    <ul>
+      <li>We do not sell, rent or share data obtained from the Pinterest API with anyone.</li>
+      <li>We do not use Pinterest data for advertising or for any purpose other than managing our own Pinterest account.</li>
+    </ul>
+
+    <h2>8. Retention and deletion</h2>
+    <ul>
+      <li>Tokens are kept only while the application is in use and are deleted when we stop using it.</li>
+      <li>The board mapping and Pin log are kept while the application runs and are deleted when it is retired.</li>
+      <li>Access can be revoked at any time from the apps section of the Pinterest account settings. This immediately stops
+      all API access.</li>
+    </ul>
+
+    <h2>9. Visitors of miletosstudio.com</h2>
+    <p>This website does not use cookies, analytics or advertising trackers, and it has no forms. Our hosting provider,
+    GitHub, may process technical data such as IP addresses in server logs to deliver and secure the site; see
+    <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub's Privacy Statement</a>.
+    Some pages link to external services such as WhatsApp or Google Maps; those services apply their own privacy policies
+    when you use them.</p>
+
+    <h2>10. Your rights</h2>
+    <p>Under Turkey's Personal Data Protection Law No. 6698 (KVKK) and, where applicable, the EU General Data Protection
+    Regulation, you may ask what personal data we hold about you and ask us to correct or delete it. Write to
+    <a href="mailto:info@miletosstudio.com">info@miletosstudio.com</a> and we will reply within 30 days.</p>
+
+    <h2>11. Children</h2>
+    <p>Our services are not directed to children under 13, and we do not knowingly collect their data.</p>
+
+    <h2>12. Changes</h2>
+    <p>If this policy changes, we will publish the new version on this page and update the date at the top.</p>
+
+    <h2>13. Contact</h2>
+    <p>Miletos Studio · Recep Berkay Ünsal · Türkiye<br />
+    <a href="mailto:info@miletosstudio.com">info@miletosstudio.com</a></p>
+  </main>
+
+  <footer>© 2026 Miletos Studio · <a href="/">miletosstudio.com</a></footer>
+</body>
+</html>
