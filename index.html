@@ -3,67 +3,451 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Miletos Studio</title>
-  <meta name="description" content="Miletos Studio — işletmeler için modern web siteleri ve VeilForged tasarım markası. Modern websites for small businesses and home of the VeilForged shop." />
+  <title>Miletos Studio | İşletmeler için web sitesi, WhatsApp ve e-posta otomasyonu</title>
+  <meta name="description" content="Miletos Studio; yerel işletmeler için telefonda hızlı açılan web siteleri kurar, WhatsApp mesajlarını, e-postaları ve randevuları otomatiğe bağlar. Bize ulaşın, işinize uygun çözümü birlikte kuralım." />
   <link rel="canonical" href="https://miletosstudio.com/" />
-  <style>
-    :root { --ink: #1c2430; --muted: #5b6573; --line: #e3e6ea; --bg: #fbfaf7; --card: #ffffff; --accent: #1f4e79; }
-    * { box-sizing: border-box; }
-    body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.65 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
-    header, main, footer { max-width: 960px; margin: 0 auto; padding: 0 20px; }
-    header { padding-block: 28px; font-weight: 700; letter-spacing: .02em; }
-    .hero { padding-block: 48px 40px; }
-    h1 { font-size: clamp(2.4rem, 8vw, 4rem); line-height: 1.05; margin: 0 0 1rem; letter-spacing: -.01em; }
-    .lead { font-size: clamp(1.15rem, 3vw, 1.4rem); margin: 0 0 .4rem; max-width: 40ch; }
-    .en { color: var(--muted); margin: 0; }
-    h2 { font-size: 1.3rem; margin: 0 0 .4rem; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; padding-block: 8px 40px; }
-    .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 24px; }
-    .card p { margin: 0 0 .6rem; }
-    a { color: var(--accent); }
-    .section { border-top: 1px solid var(--line); padding-block: 32px; }
-    .section p { max-width: 70ch; }
-    footer { border-top: 1px solid var(--line); padding-block: 24px 40px; color: var(--muted); font-size: .9rem; }
-  </style>
+  <meta name="theme-color" content="#050505" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="tr_TR" />
+  <meta property="og:url" content="https://miletosstudio.com/" />
+  <meta property="og:title" content="Miletos Studio — Siz işinize bakın, gerisini siteniz halletsin." />
+  <meta property="og:description" content="Web sitesi, WhatsApp ve e-posta otomasyonu, online randevu, yapay zeka ve sesli asistan, işletme paneli. Bize ulaşın, işinize uygun çözümü birlikte kuralım." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5'/%3E%3Cpath d='M3 16a9 9 0 0 1 18 0M6.5 16a5.5 5.5 0 0 1 11 0M10 16a2 2 0 0 1 4 0M2 19.5h20' fill='none' stroke='%23fff' stroke-width='1.6'/%3E%3C/svg%3E" />
+  <link rel="preload" href="assets/fonts/mona-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/mona-sans-latin-ext-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="assets/site.css" />
+  <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"ProfessionalService","name":"Miletos Studio","url":"https://miletosstudio.com/","email":"info@miletosstudio.com","areaServed":"TR","description":"Yerel işletmeler için web sitesi, WhatsApp ve e-posta otomasyonu, online randevu, yapay zeka ve sesli asistan, işletme paneli ve özel uygulamalar."}
+  </script>
 </head>
 <body>
-  <header>Miletos Studio</header>
+  <header class="nav">
+    <div class="nav-in">
+      <a class="brand" href="/" aria-label="Miletos Studio ana sayfa">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 16a9 9 0 0 1 18 0M6.5 16a5.5 5.5 0 0 1 11 0M10 16a2 2 0 0 1 4 0M2 19.5h20" /></svg>
+        Miletos Studio
+      </a>
+      <nav class="links" aria-label="Menü">
+        <a href="#dertler">Çözümler</a>
+        <a href="#hizmetler">Hizmetler</a>
+        <a href="#surec">Nasıl çalışır</a>
+        <a href="#sss">SSS</a>
+        <a class="btn btn-primary btn-sm magnetic" href="#iletisim">Bize ulaşın</a>
+      </nav>
+    </div>
+  </header>
+  <div class="cursor" aria-hidden="true"></div>
 
-  <main>
+  <main class="page">
     <section class="hero">
-      <h1>Miletos Studio</h1>
-      <p class="lead">İşletmeler için modern, hızlı ve telefonda rahat açılan web siteleri.</p>
-      <p class="en">Modern, fast websites for small businesses — and home of the VeilForged shop.</p>
-    </section>
-
-    <section class="grid">
-      <div class="card">
-        <h2>Web siteleri</h2>
-        <p>Yerel işletmelere, müşterinin telefondan kolayca arayıp WhatsApp'tan yazabileceği, Google Haritalar'a bağlı siteler.</p>
-        <p class="en">Websites for local businesses, built for phones, with one-tap calling, WhatsApp and maps.</p>
+      <div class="hero-copy">
+        <p class="eyebrow"><b>Web + yapay zeka</b> Yerel işletmeler için</p>
+        <h1>
+          <span class="l">Siz işinize bakın.</span>
+          <span class="rot" aria-hidden="true"><span>Web siteniz</span><span>WhatsApp'ınız</span><span>E-postanız</span><span>Takviminiz</span><span>Asistanınız</span></span>
+          <span class="sr-only">Web siteniz, WhatsApp'ınız ve e-postanız</span>
+          <span class="l">gerisini halletsin.</span>
+        </h1>
+        <p class="lead">Miletos Studio, yerel işletmeler için <strong>telefonda şimşek gibi açılan web siteleri</strong> kurar; WhatsApp mesajlarını, e-postaları ve randevuları <strong>otomatiğe bağlar</strong>. Müşteri kaçmaz, aynı soruya yüz kez cevap vermezsiniz.</p>
+        <div class="cta">
+          <a class="btn btn-primary magnetic" href="#iletisim">Bize ulaşın <span aria-hidden="true">→</span></a>
+          <a class="btn btn-ghost magnetic" href="#dertler">Neleri çözüyoruz?</a>
+        </div>
+        <p class="hero-note"><span>İşletmenize özel tasarım</span><span>Alan adı sizin adınıza</span><span>Sade Türkçe destek</span></p>
       </div>
-      <div class="card">
-        <h2>VeilForged</h2>
-        <p>Kendi tasarım markamız: gotik, ortaçağ ve mitoloji temalı tişörtler.</p>
-        <p class="en">Our own print-on-demand brand of dark fantasy graphic shirts, sold on Etsy.</p>
-        <p><a href="https://www.etsy.com/shop/VeilForged">Etsy mağazası / Visit the shop →</a></p>
+
+      <div class="visual" aria-hidden="true">
+        <div class="glow"></div>
+        <canvas id="gl"></canvas>
+        <!-- Milet Antik Tiyatrosu'ndan esinli kuşbakışı plan -->
+        <svg class="theatre" viewBox="-320 -320 640 450" fill="none" stroke-width="1.4">
+          <defs>
+            <linearGradient id="tg" gradientUnits="userSpaceOnUse" x1="-300" y1="-300" x2="300" y2="120">
+              <stop offset="0" stop-color="#ff6b3d" /><stop offset=".35" stop-color="#ffc34d" /><stop offset=".7" stop-color="#2dd4bf" /><stop offset="1" stop-color="#3b82f6" />
+            </linearGradient>
+          </defs>
+          <g class="aisles" stroke="#fff" stroke-opacity=".12">
+            <line x1="90" x2="300" transform="rotate(165)" /><line x1="90" x2="300" transform="rotate(186)" /><line x1="90" x2="300" transform="rotate(207)" />
+            <line x1="90" x2="300" transform="rotate(228)" /><line x1="90" x2="300" transform="rotate(249)" /><line x1="90" x2="300" transform="rotate(270)" />
+            <line x1="90" x2="300" transform="rotate(291)" /><line x1="90" x2="300" transform="rotate(312)" /><line x1="90" x2="300" transform="rotate(333)" />
+            <line x1="90" x2="300" transform="rotate(354)" /><line x1="90" x2="300" transform="rotate(375)" />
+            <line x1="180" x2="300" transform="rotate(175.5)" /><line x1="180" x2="300" transform="rotate(196.5)" /><line x1="180" x2="300" transform="rotate(217.5)" />
+            <line x1="180" x2="300" transform="rotate(238.5)" /><line x1="180" x2="300" transform="rotate(259.5)" /><line x1="180" x2="300" transform="rotate(280.5)" />
+            <line x1="180" x2="300" transform="rotate(301.5)" /><line x1="180" x2="300" transform="rotate(322.5)" /><line x1="180" x2="300" transform="rotate(343.5)" />
+            <line x1="180" x2="300" transform="rotate(364.5)" />
+          </g>
+          <g class="rings" stroke="url(#tg)">
+            <path pathLength="1" style="--i:0" d="M-86.93 23.29A90 90 0 1 1 86.93 23.29" />
+            <path pathLength="1" style="--i:1" d="M-115.91 31.06A120 120 0 1 1 115.91 31.06" />
+            <path pathLength="1" style="--i:2" d="M-144.89 38.82A150 150 0 1 1 144.89 38.82" />
+            <path pathLength="1" style="--i:3" d="M-173.87 46.59A180 180 0 1 1 173.87 46.59" stroke-width="2.4" />
+            <path pathLength="1" style="--i:4" d="M-202.84 54.35A210 210 0 1 1 202.84 54.35" />
+            <path pathLength="1" style="--i:5" d="M-231.82 62.12A240 240 0 1 1 231.82 62.12" />
+            <path pathLength="1" style="--i:6" d="M-260.8 69.88A270 270 0 1 1 260.8 69.88" />
+            <path pathLength="1" style="--i:7" d="M-289.78 77.65A300 300 0 1 1 289.78 77.65" stroke-width="2.4" />
+          </g>
+          <g class="stage" stroke="#fff" stroke-opacity=".3">
+            <circle r="60" />
+            <rect x="-120" y="66" width="240" height="14" />
+            <rect x="-170" y="80" width="340" height="28" />
+          </g>
+          <g class="orbits" stroke="#fff" stroke-width="2.6" stroke-linecap="round">
+            <path pathLength="1" d="M-289.78 77.65A300 300 0 1 1 289.78 77.65" />
+            <path pathLength="1" style="--s:6s" d="M-173.87 46.59A180 180 0 1 1 173.87 46.59" />
+          </g>
+        </svg>
+        <div class="toast t1"><i style="color:var(--c3)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h16v11H9l-5 4z" /></svg></i><div><b>Otomatik cevap gitti</b><small>23:04 · WhatsApp</small></div></div>
+        <div class="toast t2"><i style="color:var(--c2)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="5" width="16" height="15" rx="2" /><path d="M4 10h16M9 3v4M15 3v4" /></svg></i><div><b>Yeni randevu: Cuma 10:30</b><small>Takvime eklendi</small></div></div>
+        <div class="toast t3"><i style="color:var(--c1)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 4 2.4 5 5.4.6-4 3.7 1.1 5.4L12 16l-4.9 2.7 1.1-5.4-4-3.7 5.4-.6z" /></svg></i><div><b>Yorum isteği gönderildi</b><small>İş teslim edildi</small></div></div>
       </div>
     </section>
 
-    <section class="section" lang="en">
-      <h2>VeilForged Pin Automation</h2>
-      <p>VeilForged Pin Automation is our internal tool. It publishes VeilForged's own product images to our own Pinterest
-      account as Pins, with a title, a description and a link back to the product page on Etsy. It is used only by us and
-      is not offered to other users.</p>
-      <p><a href="/privacy/">Privacy Policy</a></p>
+    <div class="marquee x" aria-hidden="true">
+      <div class="marquee-track">
+        <ul><li>Web sitesi</li><li>WhatsApp otomasyonu</li><li>E-posta otomasyonu</li><li>Online randevu</li><li>Randevu hatırlatma</li><li>Yapay zeka asistanı</li><li>Google İşletme Profili</li><li>Yorum toplama</li><li>Sesli yapay zeka asistanı</li><li>İşletme paneli</li><li>Sosyal medya otomasyonu</li><li>Özel uygulamalar</li><li>Kaçan aramaya mesaj</li><li>Bakım ve barındırma</li></ul>
+        <ul><li>Web sitesi</li><li>WhatsApp otomasyonu</li><li>E-posta otomasyonu</li><li>Online randevu</li><li>Randevu hatırlatma</li><li>Yapay zeka asistanı</li><li>Google İşletme Profili</li><li>Yorum toplama</li><li>Sesli yapay zeka asistanı</li><li>İşletme paneli</li><li>Sosyal medya otomasyonu</li><li>Özel uygulamalar</li><li>Kaçan aramaya mesaj</li><li>Bakım ve barındırma</li></ul>
+      </div>
+    </div>
+
+    <section id="dertler" class="block x">
+      <div class="head">
+        <p class="label">01 / Tanıdık geldi mi?</p>
+        <h2 class="split">Müşteri kaybı gürültü yapmaz. <span class="grad">Sessizce gider.</span></h2>
+        <p>Cevapsız kalan bir mesaj, açılamayan bir telefon, unutulan bir randevu… Küçük dertler gibi görünür ama her biri bir müşteri demektir. Aşağı kaydırın; her derdin çözümünü telefonda canlı görün.</p>
+      </div>
+
+      <div class="story">
+        <div class="steps">
+          <article class="step" data-screen="0">
+            <p class="pain">Dert: Mesai bitti, mesajlar sabaha kadar cevapsız.</p>
+            <h3>Gece yarısı bile saniyesinde cevap.</h3>
+            <p>Müşteri yazdığı an çalışma saatleriniz, adresiniz ve randevu linkiniz otomatik gider. Siz sabah uyandığınızda müşteri çoktan sırasını almış olur.</p>
+            <div class="tags"><span>WhatsApp</span><span>Otomatik yanıt</span></div>
+          </article>
+          <article class="step" data-screen="1">
+            <p class="pain">Dert: Aynı sorulara günde defalarca cevap.</p>
+            <h3>Sık sorulanları asistanınız cevaplasın.</h3>
+            <p>“Cumartesi açık mısınız?”, “Neredesiniz?”, “Ne kadar sürer?” Sizin bilgilerinizle çalışan yapay zeka asistanı, sitenizde ve mesajlarda sizin yerinize nazikçe cevap verir. Bilmediği soruyu size yönlendirir.</p>
+            <div class="tags"><span>Yapay zeka</span><span>Site</span><span>WhatsApp</span></div>
+          </article>
+          <article class="step" data-screen="2">
+            <p class="pain">Dert: Randevuyu unutan gelmiyor, gün boşa gidiyor.</p>
+            <h3>Randevudan bir gün önce hatırlatma.</h3>
+            <p>Müşteriye randevusu kendiliğinden hatırlatılır. Gelemeyecekse tek kelimeyle iptal eder, boşalan saati başkasına verirsiniz.</p>
+            <div class="tags"><span>Online randevu</span><span>Hatırlatma</span></div>
+          </article>
+          <article class="step" data-screen="3">
+            <p class="pain">Dert: Eliniz dolu, telefon çalıyor, müşteri rakibi arıyor.</p>
+            <h3>Açamadığınız aramaya anında cevap.</h3>
+            <p>Kaçan her aramaya otomatik bir mesaj gider: “Şu an bir işin başındayız, WhatsApp'tan yazın, hemen dönelim.” Müşteri sizde kalır, başka numara çevirmez. İsterseniz telefonu sesli yapay zeka asistanı açar, randevuyu kendisi yazar.</p>
+            <div class="tags"><span>Telefon</span><span>SMS / WhatsApp</span><span>Sesli asistan</span></div>
+          </article>
+          <article class="step" data-screen="4">
+            <p class="pain">Dert: Teklif isteyen e-postalar gelen kutusunda kayboluyor.</p>
+            <h3>Her e-posta yerini bulur, hiçbiri unutulmaz.</h3>
+            <p>Gelen e-postalar konusuna göre etiketlenir, müşteriye “aldık, dönüyoruz” cevabı gider, önemli olanlar telefonunuza bildirim olarak düşer.</p>
+            <div class="tags"><span>E-posta</span><span>Etiketleme</span><span>Bildirim</span></div>
+          </article>
+          <article class="step" data-screen="5">
+            <p class="pain">Dert: Memnun müşteri çok, Google'da yorum yok.</p>
+            <h3>İş bitince yorum isteği kendiliğinden gider.</h3>
+            <p>Teslimden sonra müşteriye kibar bir teşekkür ve tek dokunuşluk Google yorum linki gider. Memnun müşterinin yorumu, yeni müşterinin ilk baktığı yerdir.</p>
+            <div class="tags"><span>Google yorumları</span><span>WhatsApp</span></div>
+          </article>
+          <article class="step" data-screen="6">
+            <p class="pain">Dert: Google'da aranıyorsunuz ama siteniz yok.</p>
+            <h3>Telefonda göz alıcı, tek dokunuşla arayan bir site.</h3>
+            <p>Çalışma saatleri, hizmetler, yol tarifi, arama ve WhatsApp butonları. Müşteri sizi bulduğu an arar; rakibinizin sitesine uğramaz bile.</p>
+            <div class="tags"><span>Web sitesi</span><span>Google Haritalar</span></div>
+          </article>
+        </div>
+
+        <div class="phone-wrap" aria-hidden="true">
+          <div class="phone">
+            <div class="screen" data-i="0">
+              <div class="app-bar"><span class="av">M</span><div><b>Müşteri</b><small>WhatsApp · çevrimiçi</small></div></div>
+              <p class="sys">Bugün 23:04</p>
+              <p class="msg in" style="--d:150ms">Merhaba, yarın sabah açık mısınız? Fiyat da sorabilir miyim?<time>23:04</time></p>
+              <p class="msg out" style="--d:900ms"><span class="auto">⚡ Otomatik yanıt</span>Merhaba! Şu an kapalıyız, yarın 09:00'da açılıyoruz. Randevu ve adres için: <u>Randevu al →</u><time>23:04 ✓✓</time></p>
+              <p class="msg in" style="--d:1700ms">Süper, yarın 10:00'a aldım, teşekkürler!<time>23:05</time></p>
+            </div>
+            <div class="screen" data-i="1">
+              <div class="app-bar"><span class="av">AI</span><div><b>Asistan</b><small>İşletmenizin sitesinde</small></div></div>
+              <p class="msg in" style="--d:150ms">Cumartesi açık mısınız?</p>
+              <p class="msg out" style="--d:800ms"><span class="auto">Asistan</span>Evet, cumartesi 09:00–18:00 arası açığız. Size bir randevu ayarlayayım mı?</p>
+              <p class="msg in" style="--d:1500ms">Neredesiniz peki?</p>
+              <p class="msg out" style="--d:2200ms"><span class="auto">Asistan</span>Yol tarifi burada: <u>Haritada aç →</u></p>
+            </div>
+            <div class="screen" data-i="2">
+              <div class="app-bar"><span class="av">M</span><div><b>Müşteri</b><small>Randevu: yarın 10:30</small></div></div>
+              <p class="sys">Dün 18:00</p>
+              <p class="msg out" style="--d:150ms"><span class="auto">⏰ Hatırlatma</span>Merhaba! Yarın saat 10:30'da randevunuz var. Gelemeyecekseniz “İptal” yazmanız yeterli.<time>18:00 ✓✓</time></p>
+              <p class="msg in" style="--d:900ms">Teşekkürler, oradayım.<time>18:12</time></p>
+              <p class="msg out" style="--d:1600ms"><span class="auto">Otomatik</span>Harika, görüşmek üzere!<time>18:12 ✓✓</time></p>
+            </div>
+            <div class="screen" data-i="3">
+              <div class="app-bar"><span class="av">M</span><div><b>Müşteri</b><small>0 5xx xxx xx xx</small></div></div>
+              <p class="sys" style="color:#f87171">Cevapsız arama · 14:05</p>
+              <p class="msg out" style="--d:500ms"><span class="auto">⚡ Otomatik mesaj</span>Merhaba, şu an bir işin başındayız. WhatsApp'tan yazarsanız hemen dönüyoruz.<time>14:05 ✓✓</time></p>
+              <p class="msg in" style="--d:1300ms">Tamam, WhatsApp'tan yazıyorum.<time>14:06</time></p>
+            </div>
+            <div class="screen" data-i="4">
+              <div class="app-bar"><span class="av warm">@</span><div><b>Gelen kutusu</b><small>3 yeni e-posta</small></div></div>
+              <div class="mail" style="--d:150ms"><b>Fiyat teklifi istiyorum</b><span>Merhaba, önümüzdeki hafta için…</span><span class="chip">Teklif talebi</span></div>
+              <div class="mail" style="--d:700ms"><b>Randevu değişikliği</b><span>Perşembe yerine cuma olabilir mi…</span><span class="chip">Randevu</span></div>
+              <div class="mail" style="--d:1250ms"><b>Otomatik cevap gönderildi</b><span>“Talebinizi aldık, bugün dönüyoruz.”</span><span class="chip ok">✓ Yanıtlandı</span></div>
+              <p class="msg out" style="--d:1900ms"><span class="auto">Bildirim</span>Yeni teklif talebi telefonunuza iletildi.</p>
+            </div>
+            <div class="screen" data-i="5">
+              <div class="app-bar"><span class="av">M</span><div><b>Müşteri</b><small>İş teslim edildi</small></div></div>
+              <p class="msg out" style="--d:150ms"><span class="auto">Otomatik</span>İşiniz hazır, bizi tercih ettiğiniz için teşekkürler! Memnun kaldıysanız Google'da bir yorum bırakır mısınız?<time>17:40 ✓✓</time></p>
+              <p class="msg out" style="--d:800ms"><b style="color:var(--c2);letter-spacing:.1em">★★★★★</b><br /><u>Google'da yorum yaz →</u></p>
+              <p class="msg in" style="--d:1500ms">Tabii, hemen yazıyorum. Elinize sağlık!<time>17:52</time></p>
+            </div>
+            <div class="screen" data-i="6">
+              <div class="ms-hero"><small>Şu an açık</small><h4>İşletme Adınız</h4><span style="color:var(--muted);font-size:3.6cqw">Hizmetleriniz, tek cümlede.</span></div>
+              <div class="ms-btns"><span class="ms-btn">Ara</span><span class="ms-btn wa">WhatsApp</span><span class="ms-btn line">Yol tarifi</span></div>
+              <div class="ms-row"><span>Bugün</span><em>09:00 – 18:00</em></div>
+              <div class="ms-row"><span>Hizmetler</span><span>→</span></div>
+              <div class="ms-row"><span>Konum</span><span>Haritada gör</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section class="section">
-      <h2>İletişim / Contact</h2>
-      <p><a href="mailto:info@miletosstudio.com">info@miletosstudio.com</a></p>
+    <section id="hizmetler" class="block x">
+      <div class="head">
+        <p class="label">02 / Hizmetler</p>
+        <h2 class="split">İşinizi büyüten her şey, <span class="grad">tek elden.</span></h2>
+        <p>Göz alıcı bir siteyle başlıyoruz, sonra işinizi yoran ne varsa otomatiğe bağlıyoruz. Hepsini sade Türkçeyle, teknik terimlere boğmadan.</p>
+      </div>
     </section>
+    <div class="bento x">
+      <article class="card card-lg">
+        <div class="demo" aria-hidden="true">
+          <div class="browser">
+            <div class="bar"><i></i><i></i><i></i><span>Sizin alan adınız</span></div>
+            <div class="site">
+              <div class="site-hero"><b>İşletme Adınız</b><div class="pills"><span></span><span></span><span></span></div></div>
+              <div class="site-cards"><span></span><span></span><span></span></div>
+              <div class="site-map"></div>
+              <div class="site-cards"><span></span><span></span><span></span></div>
+            </div>
+          </div>
+          <div class="mini-phone"><div class="site-hero"><b>İşletme Adınız</b></div><div class="btnrow"><span></span><span></span></div></div>
+        </div>
+        <h3>Web siteleri</h3>
+        <p>İlk bakışta “vay” dedirten, telefonda şimşek gibi açılan, müşteriyi tek dokunuşla size bağlayan siteler. Hazır şablon değil; işletmenize özel.</p>
+        <ul class="ticks"><li>Telefona göre tasarım</li><li>Ara, WhatsApp, yol tarifi butonları</li><li>Google'ın okuyacağı altyapı (SEO)</li><li>Çalışma saatleri ve hizmetler</li><li>Alan adı sizin adınıza</li><li>Barındırma ve bakım bizde</li></ul>
+      </article>
+      <article class="card">
+        <div class="demo" aria-hidden="true"><div class="chat">
+          <p class="b" style="--d:0s">Yarın için randevu var mı?</p>
+          <p class="b out" style="--d:1.3s">Merhaba! Yarın 10:30 ve 14:00 boş. Hangisi uygun?</p>
+          <p class="b" style="--d:2.8s">10:30 olsun.</p>
+        </div></div>
+        <h3>WhatsApp otomasyonu</h3>
+        <p>Karşılama mesajı, mesai dışı cevap, yapay zekayla cevaplanan sorular, randevu ve teslim bildirimleri, gün sonu konuşma özeti. Telefon elinizde değilken bile WhatsApp'ınız çalışır.</p>
+      </article>
+      <article class="card">
+        <div class="demo" aria-hidden="true"><div class="rows">
+          <div class="row"><i style="--d:.6s"></i><div>Fiyat teklifi<small>Yeni müşteri</small></div><em style="--d:.6s">Teklif</em></div>
+          <div class="row"><i style="--d:1.6s"></i><div>Randevu değişikliği<small>Mevcut müşteri</small></div><em style="--d:1.6s">Randevu</em></div>
+          <div class="row"><i style="--d:2.6s"></i><div>Fatura sorusu<small>Muhasebe</small></div><em style="--d:2.6s">Yanıtlandı</em></div>
+        </div></div>
+        <h3>E-posta otomasyonu</h3>
+        <p>Gelen kutusu kendini düzenler: e-postalar etiketlenir, müşteriye anında “aldık” cevabı gider, takip mesajları unutulmaz.</p>
+      </article>
+      <article class="card">
+        <div class="demo" aria-hidden="true">
+          <div class="cal">
+            <b>Pzt</b><b>Sal</b><b>Çar</b><b>Per</b><b>Cum</b>
+            <span class="busy"></span><span></span><span class="busy"></span><span></span><span class="busy"></span>
+            <span></span><span class="busy"></span><span></span><span class="busy"></span><span class="pick"></span>
+            <span class="busy"></span><span></span><span></span><span class="busy"></span><span></span>
+          </div>
+          <div class="note"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2dd4bf" stroke-width="2"><path d="M6 16V11a6 6 0 1 1 12 0v5l2 2H4zM10 21h4" /></svg><div>Hatırlatma gönderildi<small>Cuma 10:30 · 1 gün önce</small></div></div>
+        </div>
+        <h3>Online randevu ve hatırlatma</h3>
+        <p>Müşteri boş saati kendisi seçer, onay ve hatırlatma mesajı otomatik gider. Telefonda randevu yazma derdi biter.</p>
+      </article>
+      <article class="card card-glow">
+        <div class="demo" aria-hidden="true"><div class="chat">
+          <p class="b" style="--d:0s">Cumartesi açık mısınız?</p>
+          <div class="stack"><span class="typing" style="--d:1s"><i></i><i></i><i></i></span><p class="b out" style="--d:2.6s">Evet! 09:00–18:00 arası açığız. Randevu ayarlayayım mı?</p></div>
+        </div></div>
+        <h3>Yapay zeka asistanı</h3>
+        <p>Sitenizde ve mesajlarda gece gündüz nöbet tutan asistan. Fiyat listeniz, belgeleriniz ve sık sorulanlarınızla çalışır; randevuya yönlendirir, bilmediğini size aktarır.</p>
+      </article>
+      <article class="card">
+        <div class="demo" aria-hidden="true">
+          <div class="search"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7" /><path d="m20 20-4-4" /></svg><span>yakınımdaki tamirci</span></div>
+          <div class="result"><b>İşletme Adınız</b><small>Açık · 09:00–18:00</small><div><span>Web sitesi</span><span>Yol tarifi</span><span>Ara</span></div></div>
+        </div>
+        <h3>Google İşletme Profili</h3>
+        <p>Haritalarda doğru saat, doğru telefon, fotoğraflar ve site linki. “Yakınımdaki…” diye arayan müşteri sizi eksiksiz görür.</p>
+      </article>
+      <article class="card">
+        <div class="demo" aria-hidden="true"><div class="chat">
+          <p class="b out" style="--d:0s">İşiniz hazır, teşekkürler! Memnun kaldıysanız bir yorum bırakır mısınız?</p>
+          <div class="stars" style="align-self:flex-end"><i style="--n:0">★</i><i style="--n:1">★</i><i style="--n:2">★</i><i style="--n:3">★</i><i style="--n:4">★</i></div>
+          <p class="b" style="--d:2.8s">Yazdım, elinize sağlık!</p>
+        </div></div>
+        <h3>Yorum toplama</h3>
+        <p>İş bitince yorum isteği kendiliğinden gider. Memnun müşterileriniz Google'da görünür olur; yeni müşteri güvenle arar.</p>
+      </article>
+      <article class="card">
+        <div class="demo" aria-hidden="true"><div class="chat">
+          <div class="call"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="2"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2" /></svg><div>Cevapsız arama<small>14:05</small></div></div>
+          <span class="wire-dot"></span>
+          <p class="b out" style="--d:1s">Şu an bir işin başındayız, WhatsApp'tan yazın, hemen dönelim.</p>
+        </div></div>
+        <h3>Telefon asistanı</h3>
+        <p>Açamadığınız aramaya otomatik mesaj gider. Bir adım ötesi: telefonu sesli yapay zeka açar, soruyu cevaplar, randevuyu takvime yazar, görüşme özetini size gönderir.</p>
+      </article>
+      <article class="card">
+        <div class="demo" aria-hidden="true">
+          <div class="dash">
+            <div class="kpis"><span><small>Randevular</small><b></b></span><span><small>Mesajlar</small><b></b></span><span><small>Yorumlar</small><b></b></span></div>
+            <div class="bars"><i style="--h:40%;--n:0"></i><i style="--h:65%;--n:1"></i><i style="--h:50%;--n:2"></i><i style="--h:80%;--n:3"></i><i style="--h:60%;--n:4"></i><i style="--h:92%;--n:5"></i><i style="--h:74%;--n:6"></i></div>
+          </div>
+        </div>
+        <h3>İşletme paneli</h3>
+        <p>Randevular, mesajlar, teklifler ve yorumlar tek ekranda. Otomasyonların arka planda ne yaptığını görürsünüz; tek tuşla müşteriye hatırlatma bile gönderirsiniz.</p>
+      </article>
+      <article class="card">
+        <div class="demo" aria-hidden="true">
+          <div class="posts">
+            <div class="post" style="--d:0s"><i></i><div>Instagram<small>Kampanya duyurusu · hazır</small></div><em>Pzt</em></div>
+            <div class="post" style="--d:.8s"><i class="alt"></i><div>Facebook<small>Yeni hizmet tanıtımı · hazır</small></div><em>Çar</em></div>
+            <div class="post" style="--d:1.6s"><i></i><div>Google profili<small>Haftanın fotoğrafı · planlandı</small></div><em>Cum</em></div>
+          </div>
+        </div>
+        <h3>Sosyal medya otomasyonu</h3>
+        <p>İşletmenizi anlatan gönderi fikirleri ve metinleri yapay zekayla hazırlanır, onayınızla takvime dizilir. Hesaplarınız boş kalmaz.</p>
+      </article>
+      <article class="card">
+        <div class="demo" aria-hidden="true">
+          <div class="app">
+            <div class="field"><small>Müşteri</small><span class="fill" style="--d:.2s"></span></div>
+            <div class="field"><small>Hizmet</small><span class="fill" style="--d:.9s"></span></div>
+            <div class="note" style="--d:2.4s"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2dd4bf" stroke-width="2"><path d="m5 12 5 5L20 7" /></svg><div>Teklif PDF'i hazır<small>Müşteriye e-postayla gönderildi</small></div></div>
+          </div>
+        </div>
+        <h3>Özel uygulamalar</h3>
+        <p>Teklif hazırlayan, müşteri kaydı tutan, üye girişi ve online ödeme alan küçük uygulamalar. Excel'le boğuştuğunuz işi tek ekrana indiririz.</p>
+      </article>
+    </div>
+
+    <section class="block x">
+      <div class="flow">
+        <div>
+          <div class="head">
+            <p class="label">03 / Hepsi birbirine bağlı</p>
+            <h2 class="split">Müşteri nereden yazarsa yazsın, <span class="grad">size tek yerden ulaşır.</span></h2>
+          </div>
+          <ol class="flow-list">
+            <li><span class="num">01</span><div><b>Müşteri ulaşır</b><span>Siteden, WhatsApp'tan, e-postadan ya da telefonla.</span></div></li>
+            <li><span class="num">02</span><div><b>Otomasyon karşılar</b><span>Anında cevap verir, randevuyu yazar, konuyu etiketler.</span></div></li>
+            <li><span class="num">03</span><div><b>Siz haberdar olursunuz</b><span>Önemli olan telefonunuza düşer; takvim ve tablolar kendiliğinden güncellenir.</span></div></li>
+          </ol>
+        </div>
+        <svg class="beam" viewBox="0 0 360 380" fill="none" aria-hidden="true">
+          <defs><linearGradient id="bg" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="360" y2="380"><stop offset="0" stop-color="#ff6b3d" /><stop offset=".4" stop-color="#ffc34d" /><stop offset=".7" stop-color="#2dd4bf" /><stop offset="1" stop-color="#3b82f6" /></linearGradient></defs>
+          <g class="wire" stroke-width="1.2">
+            <path d="M45 58C45 120 180 104 180 156" /><path d="M135 58C135 120 180 110 180 156" /><path d="M225 58C225 120 180 110 180 156" /><path d="M315 58C315 120 180 104 180 156" />
+            <path d="M180 224C180 280 75 262 75 314" /><path d="M180 224V314" /><path d="M180 224C180 280 285 262 285 314" />
+          </g>
+          <g stroke="url(#bg)" stroke-width="2" stroke-linecap="round">
+            <path class="pulse" pathLength="100" d="M45 58C45 120 180 104 180 156" /><path class="pulse" pathLength="100" style="--d:.6s" d="M135 58C135 120 180 110 180 156" />
+            <path class="pulse" pathLength="100" style="--d:1.2s" d="M225 58C225 120 180 110 180 156" /><path class="pulse" pathLength="100" style="--d:1.8s" d="M315 58C315 120 180 104 180 156" />
+            <path class="pulse" pathLength="100" style="--d:1.3s" d="M180 224C180 280 75 262 75 314" /><path class="pulse" pathLength="100" style="--d:1.9s" d="M180 224V314" /><path class="pulse" pathLength="100" style="--d:2.5s" d="M180 224C180 280 285 262 285 314" />
+          </g>
+          <g class="node"><rect x="10" y="14" width="70" height="44" rx="12" /><rect x="100" y="14" width="70" height="44" rx="12" /><rect x="190" y="14" width="70" height="44" rx="12" /><rect x="280" y="14" width="70" height="44" rx="12" />
+            <rect x="33" y="314" width="84" height="44" rx="12" /><rect x="138" y="314" width="84" height="44" rx="12" /><rect x="243" y="314" width="84" height="44" rx="12" /></g>
+          <text x="45" y="40">Site</text><text x="135" y="40">WhatsApp</text><text x="225" y="40">E-posta</text><text x="315" y="40">Telefon</text>
+          <text x="75" y="340">Bildirim</text><text x="180" y="340">Takvim</text><text x="285" y="340">Tablo</text>
+          <circle class="halo" cx="180" cy="190" r="34" stroke="#2dd4bf" />
+          <circle cx="180" cy="190" r="34" fill="#0e0e0e" stroke="url(#bg)" stroke-width="1.5" />
+          <path d="M171 194a9 9 0 0 1 18 0M174.5 194a5.5 5.5 0 0 1 11 0M178 194a2 2 0 0 1 4 0M170 197.5h20" transform="translate(-90 -95) scale(1.5)" stroke="#f2f2f2" stroke-width="1.1" />
+        </svg>
+      </div>
+    </section>
+
+    <section id="surec" class="block x">
+      <div class="head">
+        <p class="label">04 / Nasıl çalışır</p>
+        <h2 class="split">Dört adımda, <span class="grad">hiç yorulmadan.</span></h2>
+        <p>Teknik bir şey bilmenize gerek yok. Siz işinizi anlatın, gerisini biz kuralım.</p>
+      </div>
+    </section>
+    <div class="x">
+      <ol class="process">
+        <li><h3>Yazın</h3><p>E-postayla işletmenizi ve sizi en çok yoran işi anlatın.</p></li>
+        <li><h3>Size özel plan</h3><p>İşletmenize özel bir taslak ve otomasyon planı hazırlayıp birlikte üzerinden geçiyoruz.</p></li>
+        <li><h3>Yayına alalım</h3><p>Beğendiyseniz siteyi yayına alıyoruz; alan adı sizin adınıza açılır.</p></li>
+        <li><h3>Otomatiğe bağlayalım</h3><p>İhtiyacınız olan otomasyonları ekliyor, siteyi bakımlı ve güncel tutuyoruz.</p></li>
+      </ol>
+      <span class="process-fill" aria-hidden="true"></span>
+    </div>
+
+    <section class="block x">
+      <div class="head center">
+        <p class="label">05 / Sözümüz</p>
+        <h2 class="split">Dört şey <span class="grad">hiç değişmez.</span></h2>
+      </div>
+      <ul class="promises">
+        <li class="promise"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z" /><circle cx="12" cy="12" r="3" /></svg><b>Birlikte karar</b><span>Taslağı ve planı birlikte inceler, içinize sinmeden yayına almayız.</span></li>
+        <li class="promise"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="15" r="4" /><path d="m10.8 12.2 8.2-8.2M16 7l3 3M14 9l2 2" /></svg><b>Her şey sizin</b><span>Alan adı, içerik ve markanız sizin adınıza kalır.</span></li>
+        <li class="promise"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8zM19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z" /></svg><b>Size özel</b><span>Hazır şablon yok. Aynı görünümü rakibinize kullanmayız.</span></li>
+        <li class="promise"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 5h16v11H9l-5 4z" /><path d="M8 10h8" /></svg><b>Sade Türkçe</b><span>Teknik terim yok. Değişiklik mi lazım? Bir e-posta yeterli.</span></li>
+      </ul>
+    </section>
+
+    <section id="sss" class="block x">
+      <div class="head center">
+        <p class="label">06 / Sık sorulanlar</p>
+        <h2 class="split">Aklınıza takılanlar</h2>
+      </div>
+      <div class="faq">
+        <details><summary>Nereden başlamalıyım?</summary><p>Bize işletmenizi ve sizi en çok yoran işi yazın. Siteden mi, WhatsApp'tan mı, e-postadan mı başlamak gerektiğini birlikte belirleyelim.</p></details>
+        <details><summary>Fiyatlar ne kadar?</summary><p>İşletmenin ihtiyacına göre değişiyor. Önce neye ihtiyacınız olduğunu konuşuyor, kapsamı netleştirip size özel teklif veriyoruz.</p></details>
+        <details><summary>Alan adı ve site kimin olur?</summary><p>Alan adı, içerik ve marka sizin adınıza olur.</p></details>
+        <details><summary>Teknik bir şey bilmem gerekiyor mu?</summary><p>Hayır. Değişmesini istediğiniz bir yer olursa bir e-posta atmanız yeterli.</p></details>
+        <details><summary>Otomasyon için web sitem olması şart mı?</summary><p>Şart değil. WhatsApp, e-posta ya da randevu otomasyonunu tek başına da kurabiliriz; işinizi en çok hangisi rahatlatacaksa oradan başlarız.</p></details>
+        <details><summary>Hangi işletmelerle çalışıyorsunuz?</summary><p>Müşterisi telefonla arayan, mesajla yazan her yerel işletmeyle: tamirciler, kuaförler, kafeler, ustalar, butikler…</p></details>
+      </div>
+    </section>
+
+    <section id="iletisim" class="block x contact">
+      <div class="contact-bg" aria-hidden="true"></div>
+      <p class="label">07 / İletişim</p>
+      <h2 class="split">Müşterileriniz sizi <span class="grad">bulsun, arasın, yazsın.</span></h2>
+      <p>İşletmenizi ve sizi en çok yoran işi anlatın; size en uygun çözümü birlikte kuralım.</p>
+      <div class="cta">
+        <a class="btn btn-primary magnetic" href="mailto:info@miletosstudio.com?subject=Web%20sitesi%20%2F%20otomasyon">Bize ulaşın <span aria-hidden="true">→</span></a>
+        <a class="btn btn-ghost magnetic" href="mailto:info@miletosstudio.com">info@miletosstudio.com</a>
+      </div>
+    </section>
+
+    <footer class="foot x">
+      <div class="foot-row">
+        <a class="brand" href="/">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 16a9 9 0 0 1 18 0M6.5 16a5.5 5.5 0 0 1 11 0M10 16a2 2 0 0 1 4 0M2 19.5h20" /></svg>
+          Miletos Studio
+        </a>
+        <nav aria-label="Alt menü"><a href="#hizmetler">Hizmetler</a><a href="#surec">Nasıl çalışır</a><a href="#sss">SSS</a><a href="mailto:info@miletosstudio.com">info@miletosstudio.com</a><a href="/privacy/">Gizlilik</a></nav>
+      </div>
+      <p class="note-line">© 2026 Miletos Studio · Recep Berkay Ünsal · Türkiye. Adımız Milet'ten (Aydın) geliyor: ızgara şehir planıyla anılan Hippodamos'un şehri. En üstteki çizim Milet Antik Tiyatrosu'ndan esinlenir.</p>
+      <div class="wordmark" aria-hidden="true">MILETOS</div>
+    </footer>
   </main>
 
-  <footer>© 2026 Miletos Studio · Recep Berkay Ünsal · Türkiye · <a href="/privacy/">Gizlilik / Privacy</a></footer>
+  <script src="assets/js/gsap.min.js" defer></script>
+  <script src="assets/js/ScrollTrigger.min.js" defer></script>
+  <script src="assets/js/SplitText.min.js" defer></script>
+  <script src="assets/js/lenis.min.js" defer></script>
+  <script src="assets/main.js" defer></script>
 </body>
 </html>
