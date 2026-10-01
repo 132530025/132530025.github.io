@@ -1,0 +1,667 @@
+<!doctype html>
+<!--
+  KOMBİ & KLİMA SERVİS ŞABLONU — tek dosya, kurulum yok, her hostinge atılır.
+
+  DEMO LİNKİ (esnafa kendi adıyla göster, dosyaya dokunmadan):
+    site-adresi/?firma=Yılmaz%20Isı&tel=05321234567
+      &wa=05xxxxxxxxx  → WhatsApp numarası farklıysa
+      &mod=klima       → klima ağırlıklı firmaya klima temasıyla aç
+  Parametre yoksa tema mevsime göre: Mayıs–Eylül klima (mavi), diğer aylar kombi (turuncu).
+
+  SATIŞTAN SONRA DEĞİŞTİR (Ctrl+F ile hepsini değiştir):
+    "Yıldız Isı"           → firma adı
+    "0532 000 00 00"      → görünen telefon
+    "905320000000"        → linklerdeki telefon
+    "Örnek Mah."          → adres (footer + ld+json)
+    Çalışma saatleri, istatistikler (15+, 8.500+, 4.9...), harita q= parametresi
+    YORUMLAR ÖRNEKTİR → firmanın gerçek Google yorumlarıyla değiştir.
+-->
+<html lang="tr" data-mod="kombi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Yıldız Isı | İnegöl Kombi & Klima Servisi</title>
+<meta name="description" content="İnegöl kombi ve klima servisi: arıza, bakım, petek temizliği ve montaj. Tüm markalar, aynı gün servis, ücreti işe başlamadan söyleriz.">
+<meta name="theme-color" content="#0a101e">
+<meta property="og:type" content="website">
+<meta property="og:title" content="İnegöl Kombi & Klima Servisi — Aynı Gün Servis">
+<meta property="og:description" content="Arıza, bakım, montaj. Tüm markalar, garantili işçilik. Hemen arayın ya da WhatsApp'tan yazın.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"HVACBusiness","name":"Yıldız Isı","telephone":"+905320000000",
+ "address":{"@type":"PostalAddress","streetAddress":"Örnek Mah. Örnek Cad. No:1","addressLocality":"İnegöl","addressRegion":"Bursa","addressCountry":"TR"},
+ "areaServed":"İnegöl","openingHours":"Mo-Sa 08:00-20:00","priceRange":"₺₺"}
+</script>
+<style>
+@property --a{syntax:'<color>';inherits:true;initial-value:#f0501a}
+@property --a2{syntax:'<color>';inherits:true;initial-value:#ffb21e}
+@property --lvl{syntax:'<angle>';inherits:true;initial-value:190deg}
+:root{--bg:#f4f6fb;--ink:#0d1321;--mut:#596377;--line:#e2e6ee;--dark:#0a101e;--wa:#16a34a;--r:20px;--sicak:#f0501a;--soguk:#0a8ad0}
+[data-mod=kombi]{--a:var(--sicak);--a2:#ffb21e;--lvl:190deg}
+[data-mod=klima]{--a:var(--soguk);--a2:#3fe0cf;--lvl:130deg}
+[data-mod=kombi] .m-klima,[data-mod=klima] .m-kombi{display:none!important}
+
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px;transition:--a .6s,--a2 .6s,--lvl .9s cubic-bezier(.2,.8,.2,1)}
+body{font:16px/1.6 'Plus Jakarta Sans',system-ui,sans-serif;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;overflow-x:clip;padding-bottom:84px}
+a{color:inherit;text-decoration:none}
+.w{max-width:1160px;margin:0 auto;padding:0 18px}
+.i{width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.mut{color:var(--mut)}
+.d-only{display:none}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:54px;padding:0 24px;border:0;border-radius:14px;font-family:inherit;font-size:16.5px;font-weight:700;line-height:1;cursor:pointer;transition:transform .15s,box-shadow .2s,background-color .3s}
+.btn:active{transform:scale(.97)}
+.btn-a{color:#fff;background:linear-gradient(135deg,var(--a),color-mix(in srgb,var(--a) 75%,var(--a2)));box-shadow:0 12px 30px -10px color-mix(in srgb,var(--a) 80%,transparent)}
+.btn-wa{color:#fff;background:var(--wa);box-shadow:0 12px 30px -10px rgba(22,163,74,.7)}
+.btn-w{color:var(--ink);background:#fff}
+.btn-sm{min-height:42px;padding:0 16px;font-size:15px;border-radius:12px}
+.btn:focus-visible,.seg button:focus-visible{outline:3px solid var(--a2);outline-offset:3px}
+
+/* header */
+.top{position:sticky;top:0;z-index:40;color:#fff;background:rgba(10,16,30,.85);-webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid rgba(255,255,255,.06)}
+.top-in{display:flex;align-items:center;gap:16px;height:64px}
+.logo{display:flex;align-items:center;gap:10px;min-width:0;margin-right:auto}
+.lt{min-width:0}
+.logo b{display:block;font-size:17px;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.logo small{display:block;font-size:11.5px;color:rgba(255,255,255,.6)}
+.mark{width:40px;height:40px;flex:none;display:grid;place-items:center;border-radius:12px;color:#fff;background:linear-gradient(135deg,var(--a),var(--a2))}
+.mark .i{width:22px;height:22px}
+.nav{display:none;gap:28px;font-size:15px;font-weight:600;color:rgba(255,255,255,.72)}
+.nav a:hover{color:#fff}
+
+/* hero */
+.hero{position:relative;overflow:hidden;color:#fff;background:var(--dark)}
+.hero::before{content:"";position:absolute;width:760px;height:760px;right:-300px;top:-320px;border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--a) 60%,transparent),transparent);opacity:.6;pointer-events:none}
+.hero::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:48px 48px;-webkit-mask-image:radial-gradient(ellipse at 75% 15%,#000,transparent 70%);mask-image:radial-gradient(ellipse at 75% 15%,#000,transparent 70%);pointer-events:none}
+.hero .w{position:relative;z-index:1}
+.hero-grid{display:grid;padding:24px 0 8px}
+.status{display:flex;align-items:center;gap:8px;font-size:13.5px;color:rgba(255,255,255,.75);margin-bottom:16px}
+.dot{width:8px;height:8px;border-radius:50%;background:#22c55e;animation:ping 2s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(34,197,94,.6)}70%,100%{box-shadow:0 0 0 9px rgba(34,197,94,0)}}
+.seg{display:inline-flex;gap:4px;padding:4px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12)}
+.seg button{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border:0;border-radius:999px;background:none;font-family:inherit;font-size:14.5px;font-weight:700;line-height:1;color:rgba(255,255,255,.7);cursor:pointer;transition:background-color .3s,color .3s}
+.seg .i{width:17px;height:17px}
+[data-mod=kombi] [data-set-mod=kombi],[data-mod=klima] [data-set-mod=klima]{background:var(--a);color:#fff}
+h1{font-size:clamp(34px,5.4vw,62px);line-height:1.06;letter-spacing:-.035em;font-weight:800;margin:20px 0 16px}
+.kick{display:block;font-size:13px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:rgba(255,255,255,.55);margin-bottom:12px}
+.grad{background:linear-gradient(90deg,var(--a),var(--a2));-webkit-background-clip:text;background-clip:text;color:transparent}
+h1 em{display:block;font-style:normal}
+.lead{font-size:17px;color:rgba(255,255,255,.72);max-width:540px}
+.cta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:26px}
+.trust{display:flex;flex-wrap:wrap;gap:8px 18px;list-style:none;padding:0;margin-top:20px;font-size:14px;color:rgba(255,255,255,.8)}
+.trust li{display:flex;align-items:center;gap:6px}
+.trust .i{width:16px;height:16px;color:var(--a2)}
+
+/* thermostat visual */
+.vis{position:relative;width:100%;max-width:400px;margin:18px auto 0;padding:44px 0 52px}
+.panel{border-radius:28px;padding:16px 18px 18px;background:linear-gradient(160deg,rgba(255,255,255,.1),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.12);box-shadow:0 40px 80px -30px rgba(0,0,0,.6)}
+.ph{display:flex;justify-content:space-between;font-size:12.5px;color:rgba(255,255,255,.6);margin-bottom:14px}
+.live{display:inline-flex;align-items:center;gap:6px;color:#4ade80}
+.live::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.dial{position:relative;width:min(230px,62vw);aspect-ratio:1;margin:0 auto;border-radius:50%;background:conic-gradient(from 225deg,var(--a),var(--a2) var(--lvl),rgba(255,255,255,.1) var(--lvl) 270deg,transparent 0);filter:drop-shadow(0 0 26px color-mix(in srgb,var(--a) 55%,transparent))}
+.dial-in{position:absolute;inset:16px;border-radius:50%;display:grid;place-content:center;text-align:center;background:radial-gradient(circle at 50% 30%,#1e2944,#0c1322 70%);box-shadow:inset 0 2px 14px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.06)}
+.dial-in small{font-size:11px;font-weight:700;letter-spacing:.14em;color:rgba(255,255,255,.55)}
+.dial-in b{font-size:62px;line-height:1;font-weight:800;letter-spacing:-.04em;margin:6px 0 4px}
+.dial-in sup{font-size:24px;vertical-align:top;color:var(--a2)}
+.knob{position:absolute;inset:0;transform:rotate(calc(225deg + var(--lvl)))}
+.knob::after{content:"";position:absolute;left:50%;top:-1px;width:18px;height:18px;margin-left:-9px;border-radius:50%;background:#fff;box-shadow:0 0 0 5px color-mix(in srgb,var(--a2) 40%,transparent)}
+.pr{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:18px;text-align:center}
+.pr div{padding:10px 4px;border-radius:12px;background:rgba(255,255,255,.05)}
+.pr small{display:block;font-size:11px;color:rgba(255,255,255,.55)}
+.pr b{font-size:14px}
+.pr .g{color:#4ade80}
+.fchip{position:absolute;display:flex;align-items:center;gap:10px;padding:9px 14px 9px 9px;border-radius:16px;background:#fff;color:var(--ink);font-size:13px;line-height:1.3;box-shadow:0 20px 40px -12px rgba(0,0,0,.55);animation:float 5s ease-in-out infinite}
+.fchip small{display:block;font-size:11.5px;color:var(--mut)}
+.fi{width:34px;height:34px;flex:none;display:grid;place-items:center;border-radius:10px;color:var(--a);background:color-mix(in srgb,var(--a) 14%,#fff)}
+.fi .i{width:18px;height:18px}
+.fi.ok{color:#16a34a;background:#dcfce7}
+.f1{top:0;left:0}
+.f2{bottom:0;right:0;animation-delay:-2.5s}
+@keyframes float{50%{transform:translateY(-8px)}}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;list-style:none;padding:0;margin:0 0 36px}
+.stats li{padding:16px;border-radius:16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08)}
+.stats b{display:block;font-size:28px;font-weight:800;letter-spacing:-.02em;line-height:1.2}
+.stats span{font-size:13px;color:rgba(255,255,255,.6)}
+
+/* brands */
+.brands{background:#fff;border-bottom:1px solid var(--line);padding:18px 0}
+.br-in{display:flex;flex-direction:column;gap:10px}
+.br-l{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);text-align:center}
+.mq{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.mq-in{display:flex;width:max-content;animation:mq 40s linear infinite}
+.mq ul{display:flex;gap:36px;padding:0 18px;list-style:none}
+.mq li{font-size:17px;font-weight:800;letter-spacing:-.01em;color:#9aa3b5;white-space:nowrap}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* sections */
+.sec{padding:64px 0}
+.sec.pt0{padding-top:0}
+.alt{background:#fff}
+.sh{max-width:660px;margin-bottom:30px}
+.sh p{margin-top:12px;font-size:16.5px;color:var(--mut)}
+.eb{display:inline-block;margin-bottom:10px;font-size:12.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--a)}
+h2{font-size:clamp(28px,3.6vw,42px);line-height:1.12;letter-spacing:-.03em;font-weight:800}
+h3{line-height:1.3}
+
+/* services */
+.grid-s{display:grid;gap:12px}
+.svc{display:grid;grid-template-columns:48px 1fr;gap:2px 14px;padding:18px;border-radius:var(--r);background:#fff;border:1px solid var(--line);transition:transform .25s,box-shadow .25s,border-color .25s}
+.svc.sicak{--a:var(--sicak)}
+.svc.soguk{--a:var(--soguk)}
+.svc .ic{grid-row:span 3;width:48px;height:48px;display:grid;place-items:center;border-radius:14px;color:var(--a);background:color-mix(in srgb,var(--a) 12%,#fff)}
+.svc .ic .i{width:24px;height:24px}
+.svc h3{font-size:17px}
+.svc p{font-size:14.5px;color:var(--mut);line-height:1.55}
+.lnk{display:inline-flex;align-items:center;gap:4px;justify-self:start;margin-top:6px;font-size:14.5px;font-weight:700;color:var(--a)}
+.lnk .i{width:16px;height:16px;transition:transform .2s}
+.lnk:hover .i{transform:translateX(3px)}
+
+/* promo */
+.promo{position:relative;overflow:hidden;display:grid;gap:22px;padding:30px 24px;border-radius:28px;color:#fff;background:radial-gradient(circle at 88% 12%,color-mix(in srgb,var(--a2) 75%,transparent),transparent 42%),linear-gradient(135deg,var(--a),color-mix(in srgb,var(--a) 62%,#000))}
+.promo .deco{position:absolute;right:-30px;bottom:-50px;width:230px;height:230px;opacity:.14;stroke-width:1.5}
+.tag{display:inline-block;padding:6px 12px;border-radius:999px;font-size:12.5px;font-weight:700;background:rgba(255,255,255,.18)}
+.promo .big{margin:14px 0 8px;font-size:clamp(30px,5.4vw,52px);font-weight:800;line-height:1.05;letter-spacing:-.03em}
+.promo p{max-width:520px;color:rgba(255,255,255,.88)}
+.promo .btn{position:relative;justify-self:start}
+
+/* request form */
+.talep{display:grid;gap:30px}
+.ok-list{display:grid;gap:12px;list-style:none;padding:0;margin:22px 0}
+.ok-list li{display:flex;gap:10px;font-weight:600}
+.ok-list .i{margin-top:2px;color:#16a34a}
+.callout{display:inline-flex;align-items:center;gap:8px;font-weight:700}
+.callout b{color:var(--a)}
+.form{padding:22px;border-radius:24px;background:#fff;border:1px solid var(--line);box-shadow:0 30px 60px -30px rgba(13,19,33,.22)}
+.lbl{display:block;margin:20px 0 10px;font-size:14px;font-weight:700}
+.form>.lbl:first-child{margin-top:0}
+.lbl small{font-weight:500;color:var(--mut)}
+.seg-l{background:#eef1f6;border-color:var(--line)}
+.seg-l button{color:var(--mut)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{position:relative}
+.chip input{position:absolute;opacity:0}
+.chip span{display:inline-block;padding:9px 14px;border-radius:999px;border:1.5px solid var(--line);font-size:14px;font-weight:600;cursor:pointer;transition:all .2s}
+.chip input:checked+span{border-color:var(--a);color:var(--a);background:color-mix(in srgb,var(--a) 9%,#fff)}
+.chip input:focus-visible+span{outline:2px solid var(--a);outline-offset:2px}
+.in{width:100%;height:52px;padding:0 14px;border:1.5px solid var(--line);border-radius:14px;font:inherit;font-size:16px;color:var(--ink);background:#fff;transition:border-color .2s,box-shadow .2s}
+.in:focus{outline:none;border-color:var(--a);box-shadow:0 0 0 4px color-mix(in srgb,var(--a) 15%,transparent)}
+select.in{-webkit-appearance:none;appearance:none;padding-right:40px;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%23596377' stroke-width='2'%3E%3Cpath d='m1 1 5 5 5-5'/%3E%3C/svg%3E") no-repeat right 16px center}
+.row2{display:grid;column-gap:12px}
+.form .btn{width:100%;margin-top:22px}
+.fine{margin-top:10px;font-size:13px;text-align:center;color:var(--mut)}
+
+/* steps */
+.steps{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.step{padding:20px 18px;border-radius:var(--r);background:#fff;border:1px solid var(--line)}
+.step .n{display:grid;place-items:center;width:38px;height:38px;margin-bottom:14px;border-radius:12px;font-weight:800;color:#fff;background:var(--dark)}
+.step h3{font-size:16.5px;margin-bottom:4px}
+.step p{font-size:14px;line-height:1.5;color:var(--mut)}
+.step.hl{color:#fff;background:var(--dark);border-color:var(--dark)}
+.step.hl .n{background:var(--a)}
+.step.hl p{color:rgba(255,255,255,.7)}
+
+/* reviews */
+.sh-row{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:30px}
+.sh-row .sh{margin:0}
+.score{display:flex;align-items:center;gap:12px;padding:12px 18px;border-radius:16px;background:#fff;border:1px solid var(--line)}
+.score b{font-size:36px;font-weight:800;letter-spacing:-.03em;line-height:1}
+.score small{display:block;font-size:13px;color:var(--mut)}
+.stars{color:#f5b301;letter-spacing:2px}
+.rev{display:grid;grid-auto-flow:column;grid-auto-columns:86%;gap:12px;margin:0 -18px;padding:0 18px 6px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 18px;scrollbar-width:none}
+.rev::-webkit-scrollbar{display:none}
+.rc{display:flex;flex-direction:column;gap:14px;margin:0;padding:22px;border-radius:var(--r);background:#fff;border:1px solid var(--line);scroll-snap-align:start}
+.rc blockquote{margin:0;font-size:15.5px}
+.rc figcaption{display:grid;grid-template-columns:auto 1fr;column-gap:12px;align-items:center;margin-top:auto;line-height:1.3}
+.av{grid-row:span 2;width:42px;height:42px;display:grid;place-items:center;border-radius:50%;font-size:14px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--a),var(--a2))}
+.rc small{font-size:13px;color:var(--mut)}
+
+/* areas */
+.areas{display:grid;gap:28px}
+.mah{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin-top:22px}
+.mah li{padding:7px 13px;border-radius:999px;font-size:14px;font-weight:600;background:#fff;border:1px solid var(--line)}
+.mah .more{color:#fff;background:var(--dark);border-color:var(--dark)}
+.map{display:block;width:100%;height:300px;border:0;border-radius:var(--r);background:#e5e9f0}
+
+/* faq */
+.faqw{display:grid;gap:26px}
+details{margin-bottom:10px;border-radius:16px;background:var(--bg);border:1px solid var(--line)}
+summary{position:relative;padding:18px 52px 18px 20px;font-weight:700;cursor:pointer;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:20px;top:50%;transform:translateY(-50%);font-size:24px;font-weight:500;color:var(--a);transition:transform .25s}
+details[open] summary::after{transform:translateY(-50%) rotate(45deg)}
+details p{padding:0 20px 18px;color:var(--mut)}
+
+/* final cta */
+.final{position:relative;overflow:hidden;padding:72px 0;text-align:center;color:#fff;background:var(--dark)}
+.final::before{content:"";position:absolute;left:50%;bottom:-460px;width:960px;height:760px;transform:translateX(-50%);border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--a) 55%,transparent),transparent);pointer-events:none}
+.final .w{position:relative}
+.final p{max-width:480px;margin:12px auto 0;color:rgba(255,255,255,.7)}
+.bigtel{display:inline-block;margin:24px 0 22px;font-size:clamp(34px,7vw,64px);font-weight:800;letter-spacing:-.03em}
+.final .cta{max-width:420px;margin:0 auto}
+
+/* footer */
+footer{padding:48px 0 28px;font-size:14.5px;color:rgba(255,255,255,.65);background:#060a14}
+.ft{display:grid;gap:30px}
+footer .logo{color:#fff;margin-bottom:14px}
+footer h4{margin-bottom:12px;font-size:14px;color:#fff}
+footer ul{display:grid;gap:10px;list-style:none;padding:0}
+footer li{display:flex;gap:10px}
+footer li .i{width:18px;height:18px;margin-top:2px;color:var(--a2)}
+footer a:hover{color:#fff}
+.fb{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;margin-top:36px;padding-top:20px;font-size:12.5px;border-top:1px solid rgba(255,255,255,.08)}
+
+/* mobile bar + desktop fab */
+.mbar{position:fixed;left:0;right:0;bottom:0;z-index:50;display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1px solid var(--line)}
+.mbar .btn{min-height:50px;box-shadow:none}
+.fab{display:none}
+
+@media(min-width:560px){
+  .cta{display:flex;flex-wrap:wrap}
+  .row2{grid-template-columns:1fr 1fr}
+  .rev{grid-auto-columns:60%}
+}
+@media(min-width:760px){
+  .grid-s{grid-template-columns:repeat(3,1fr);gap:18px}
+  .svc{display:flex;flex-direction:column;gap:10px;padding:26px}
+  .svc .lnk{margin-top:auto;padding-top:6px}
+  .svc:hover{transform:translateY(-4px);border-color:transparent;box-shadow:0 24px 50px -24px rgba(13,19,33,.28)}
+  .rev{grid-auto-flow:row;grid-template-columns:repeat(3,1fr);margin:0;padding:0;overflow:visible}
+  .promo{grid-template-columns:1fr auto;align-items:center;padding:48px}
+  .promo .btn{justify-self:end}
+}
+@media(min-width:900px){
+  body{padding-bottom:0}
+  .top-in{height:72px}
+  .nav,.d-only{display:flex}
+  .m-only{display:none}
+  .hero-grid{grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;padding:64px 0 40px}
+  .vis{margin-top:0}
+  .f1{left:-44px;top:14px}
+  .f2{right:-34px}
+  .stats{grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:56px}
+  .stats li{padding:22px}
+  .stats b{font-size:36px}
+  .br-in{flex-direction:row;align-items:center;gap:28px}
+  .br-l{flex:none;text-align:left}
+  .mq{flex:1}
+  .sec{padding:96px 0}
+  .talep{grid-template-columns:.9fr 1.1fr;gap:64px;align-items:start}
+  .form{padding:32px}
+  .steps{grid-template-columns:repeat(4,1fr);gap:18px}
+  .step{padding:28px}
+  .areas{grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+  .map{height:400px}
+  .faqw{grid-template-columns:.8fr 1.2fr;gap:56px;align-items:start}
+  .final{padding:110px 0}
+  .ft{grid-template-columns:1.4fr 1fr 1fr}
+  .mbar{display:none}
+  .fab{position:fixed;right:24px;bottom:24px;z-index:50;display:grid;place-items:center;width:62px;height:62px;border-radius:50%;color:#fff;background:var(--wa);box-shadow:0 14px 30px -8px rgba(22,163,74,.7);transition:transform .2s}
+  .fab:hover{transform:scale(1.08)}
+  .fab .i{width:30px;height:30px}
+}
+@supports (animation-timeline:view()){
+  .rv{animation:rv linear both;animation-timeline:view();animation-range:entry 0% entry 70%}
+  @keyframes rv{from{opacity:0;transform:translateY(28px)}}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></symbol>
+  <symbol id="i-flame" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></symbol>
+  <symbol id="i-snow" viewBox="0 0 24 24"><path d="M2 12h20M12 2v20m8-6-4-4 4-4M4 8l4 4-4 4M16 4l-4 4-4-4M8 20l4-4 4 4"/></symbol>
+  <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+  <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.27 6.96 12 12.01l8.73-5.05M12 22.08V12"/></symbol>
+  <symbol id="i-wind" viewBox="0 0 24 24"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+  <symbol id="i-truck" viewBox="0 0 24 24"><path d="M1 3h15v13H1zM16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></symbol>
+</svg>
+
+<header class="top">
+  <div class="w top-in">
+    <a href="#" class="logo" aria-label="Ana sayfa">
+      <span class="mark"><svg class="i m-kombi"><use href="#i-flame"/></svg><svg class="i m-klima"><use href="#i-snow"/></svg></span>
+      <span class="lt"><b data-firma>Yıldız Isı</b><small>Kombi & Klima Servisi</small></span>
+    </a>
+    <nav class="nav" aria-label="Menü">
+      <a href="#hizmetler">Hizmetler</a><a href="#nasil">Nasıl Çalışırız</a><a href="#yorumlar">Yorumlar</a><a href="#sss">SSS</a>
+    </nav>
+    <a class="btn btn-a btn-sm" href="tel:+905320000000"><svg class="i"><use href="#i-phone"/></svg><span class="d-only" data-tel>0532 000 00 00</span><span class="m-only">Ara</span></a>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="w">
+    <div class="hero-grid">
+      <div>
+        <p class="status"><i class="dot"></i><span id="durum">Şu an açığız</span> · Aynı gün servis</p>
+        <div class="seg" role="group" aria-label="Cihaz">
+          <button type="button" data-set-mod="kombi"><svg class="i"><use href="#i-flame"/></svg>Kombi</button>
+          <button type="button" data-set-mod="klima"><svg class="i"><use href="#i-snow"/></svg>Klima</button>
+        </div>
+        <h1>
+          <span class="kick">İnegöl Kombi & Klima Servisi</span>
+          <span class="m-kombi">Kombiniz mi arızalandı?</span><span class="m-klima">Klimanız mı soğutmuyor?</span>
+          <em class="grad">Bugün halledelim.</em>
+        </h1>
+        <p class="lead">İnegöl'ün her mahallesine aynı gün servis. Tüm marka kombi ve klimalarda arıza, bakım ve montaj — ücreti işe başlamadan söyleriz.</p>
+        <div class="cta">
+          <a class="btn btn-a" href="tel:+905320000000"><svg class="i"><use href="#i-phone"/></svg>Hemen Ara</a>
+          <a class="btn btn-wa" href="#talep" data-wa=""><svg class="i"><use href="#i-wa"/></svg>WhatsApp</a>
+        </div>
+        <ul class="trust">
+          <li><svg class="i"><use href="#i-check"/></svg>4.9 müşteri puanı</li>
+          <li><svg class="i"><use href="#i-check"/></svg>15+ yıllık tecrübe</li>
+          <li><svg class="i"><use href="#i-check"/></svg>1 yıl işçilik garantisi</li>
+        </ul>
+      </div>
+
+      <div class="vis" aria-hidden="true">
+        <div class="panel">
+          <div class="ph"><span>Ev · Salon</span><span class="live">Canlı</span></div>
+          <div class="dial">
+            <div class="knob"></div>
+            <div class="dial-in">
+              <small><span class="m-kombi">ISITMA</span><span class="m-klima">SOĞUTMA</span></small>
+              <b><span class="m-kombi">22</span><span class="m-klima">24</span><sup>°C</sup></b>
+              <small>SALON</small>
+            </div>
+          </div>
+          <div class="pr">
+            <div><small><span class="m-kombi">Basınç</span><span class="m-klima">Filtre</span></small><b><span class="m-kombi">1,5 bar</span><span class="m-klima">Temiz</span></b></div>
+            <div><small>Son bakım</small><b>Bugün</b></div>
+            <div><small>Durum</small><b class="g">✓ İyi</b></div>
+          </div>
+        </div>
+        <div class="fchip f1"><span class="fi ok"><svg class="i"><use href="#i-check"/></svg></span><div><b>Bakım tamamlandı</b><small>Kemalpaşa Mah. · 12 dk önce</small></div></div>
+        <div class="fchip f2"><span class="fi"><svg class="i"><use href="#i-truck"/></svg></span><div><b>Usta yolda</b><small>Cuma Mah. · varış ~20 dk</small></div></div>
+      </div>
+    </div>
+
+    <ul class="stats">
+      <li><b>15+</b><span>yıllık tecrübe</span></li>
+      <li><b>8.500+</b><span>tamamlanan servis</span></li>
+      <li><b>4.9 ★</b><span>müşteri puanı</span></li>
+      <li><b>45 dk</b><span>ortalama varış</span></li>
+    </ul>
+  </div>
+</section>
+
+<div class="brands">
+  <div class="w br-in">
+    <span class="br-l">Tüm markalara servis</span>
+    <div class="mq"><div class="mq-in">
+      <ul><li>Vaillant</li><li>Demirdöküm</li><li>Bosch</li><li>Baymak</li><li>ECA</li><li>Buderus</li><li>Viessmann</li><li>Ariston</li><li>Protherm</li><li>Immergas</li><li>Daikin</li><li>Mitsubishi Electric</li><li>Arçelik</li><li>Samsung</li><li>LG</li><li>Toshiba</li><li>Vestel</li><li>Beko</li><li>Fujitsu</li><li>Gree</li></ul>
+      <ul aria-hidden="true"><li>Vaillant</li><li>Demirdöküm</li><li>Bosch</li><li>Baymak</li><li>ECA</li><li>Buderus</li><li>Viessmann</li><li>Ariston</li><li>Protherm</li><li>Immergas</li><li>Daikin</li><li>Mitsubishi Electric</li><li>Arçelik</li><li>Samsung</li><li>LG</li><li>Toshiba</li><li>Vestel</li><li>Beko</li><li>Fujitsu</li><li>Gree</li></ul>
+    </div></div>
+  </div>
+</div>
+
+<section class="sec" id="hizmetler">
+  <div class="w">
+    <div class="sh">
+      <span class="eb">Hizmetlerimiz</span>
+      <h2>Isıtma ve soğutmada tek adres</h2>
+      <p>Kombiden klimaya, peteğe kadar evinizin konforu için gereken her şey. Tüm markalar, orijinal yedek parça.</p>
+    </div>
+    <div class="grid-s">
+      <article class="svc sicak rv"><span class="ic"><svg class="i"><use href="#i-flame"/></svg></span><h3>Kombi Bakımı</h3><p>Yanma ayarı, eşanjör ve fan temizliği, basınç kontrolü. Daha az gaz, daha uzun ömür.</p><a class="lnk" href="#talep" data-wa="kombi bakımı için fiyat almak istiyorum.">Fiyat sor <svg class="i"><use href="#i-arrow"/></svg></a></article>
+      <article class="svc sicak rv"><span class="ic"><svg class="i"><use href="#i-wrench"/></svg></span><h3>Kombi Arıza & Tamir</h3><p>Hata kodu, basınç düşmesi, sıcak su sorunu… Arızayı bulur, çoğu zaman aynı gün onarırız.</p><a class="lnk" href="#talep" data-wa="kombimde arıza var, servis istiyorum.">Servis çağır <svg class="i"><use href="#i-arrow"/></svg></a></article>
+      <article class="svc sicak rv"><span class="ic"><svg class="i"><use href="#i-drop"/></svg></span><h3>Petek Temizliği</h3><p>Makineli temizlikle ısınmayan petekleri ilk günkü verimine döndürüyoruz.</p><a class="lnk" href="#talep" data-wa="petek temizliği için fiyat almak istiyorum.">Fiyat sor <svg class="i"><use href="#i-arrow"/></svg></a></article>
+      <article class="svc sicak rv"><span class="ic"><svg class="i"><use href="#i-box"/></svg></span><h3>Kombi Montaj & Değişim</h3><p>Evinize uygun kombiyi önerir; söküm, montaj ve ilk çalıştırmayı tek seferde yaparız.</p><a class="lnk" href="#talep" data-wa="kombi değişimi / montajı için bilgi almak istiyorum.">Bilgi al <svg class="i"><use href="#i-arrow"/></svg></a></article>
+      <article class="svc soguk rv"><span class="ic"><svg class="i"><use href="#i-snow"/></svg></span><h3>Klima Montajı</h3><p>Odanıza uygun BTU önerisi, temiz ve estetik montaj, yer değiştirme.</p><a class="lnk" href="#talep" data-wa="klima montajı için fiyat almak istiyorum.">Fiyat sor <svg class="i"><use href="#i-arrow"/></svg></a></article>
+      <article class="svc soguk rv"><span class="ic"><svg class="i"><use href="#i-wind"/></svg></span><h3>Klima Bakım & Gaz</h3><p>Filtre ve iç ünite temizliği, gaz kaçağı kontrolü ve dolum. Daha serin, daha temiz hava.</p><a class="lnk" href="#talep" data-wa="klima bakımı için fiyat almak istiyorum.">Fiyat sor <svg class="i"><use href="#i-arrow"/></svg></a></article>
+    </div>
+  </div>
+</section>
+
+<section class="sec pt0">
+  <div class="w">
+    <div class="promo rv">
+      <svg class="i deco m-kombi"><use href="#i-flame"/></svg><svg class="i deco m-klima"><use href="#i-snow"/></svg>
+      <div>
+        <span class="tag"><span class="m-kombi">Kış öncesi kampanya</span><span class="m-klima">Yaz öncesi kampanya</span></span>
+        <p class="big"><span class="m-kombi">Kombi bakımında</span><span class="m-klima">Klima bakımında</span> %20 indirim</p>
+        <p class="m-kombi">Soğuklar başlamadan bakımı yaptırın, kışı arızasız geçirin. Petek kontrolü bizden.</p>
+        <p class="m-klima">Sıcaklar gelmeden filtre, iç ünite temizliği ve gaz kontrolü. Yazı serin geçirin.</p>
+      </div>
+      <a class="btn btn-w m-kombi" href="#talep" data-wa="kış öncesi kombi bakım kampanyasından yararlanmak istiyorum.">Randevu al <svg class="i"><use href="#i-arrow"/></svg></a>
+      <a class="btn btn-w m-klima" href="#talep" data-wa="yaz öncesi klima bakım kampanyasından yararlanmak istiyorum.">Randevu al <svg class="i"><use href="#i-arrow"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<section class="sec alt" id="talep">
+  <div class="w talep">
+    <div>
+      <span class="eb">Hızlı servis talebi</span>
+      <h2>Sorunu seçin, mesajı biz hazırlayalım</h2>
+      <p class="mut" style="margin-top:12px">Uzun formlar yok. Seçimlerinize göre hazır mesaj WhatsApp'ta açılır, siz sadece gönderirsiniz. Ustamız en kısa sürede dönüş yapar.</p>
+      <ul class="ok-list">
+        <li><svg class="i"><use href="#i-check"/></svg>Fotoğraf ya da video atabilirsiniz</li>
+        <li><svg class="i"><use href="#i-check"/></svg>Ücretsiz ön bilgi ve fiyat</li>
+        <li><svg class="i"><use href="#i-check"/></svg>Randevu saatini siz seçersiniz</li>
+      </ul>
+      <a class="callout" href="tel:+905320000000"><svg class="i"><use href="#i-phone"/></svg>Acil mi? Hemen arayın: <b data-tel>0532 000 00 00</b></a>
+    </div>
+
+    <form class="form" id="talep-f">
+      <span class="lbl">1 · Cihaz</span>
+      <div class="seg seg-l" role="group" aria-label="Cihaz">
+        <button type="button" data-set-mod="kombi"><svg class="i"><use href="#i-flame"/></svg>Kombi</button>
+        <button type="button" data-set-mod="klima"><svg class="i"><use href="#i-snow"/></svg>Klima</button>
+      </div>
+      <span class="lbl">2 · Sorun ne?</span>
+      <div class="chips m-kombi">
+        <label class="chip"><input type="radio" name="sorun" value="Petekler ısınmıyor"><span>Petekler ısınmıyor</span></label>
+        <label class="chip"><input type="radio" name="sorun" value="Sıcak su gelmiyor"><span>Sıcak su gelmiyor</span></label>
+        <label class="chip"><input type="radio" name="sorun" value="Basınç düşüyor"><span>Basınç düşüyor</span></label>
+        <label class="chip"><input type="radio" name="sorun" value="Hata kodu veriyor"><span>Hata kodu veriyor</span></label>
+        <label class="chip"><input type="radio" name="sorun" value="Su damlatıyor"><span>Su damlatıyor</span></label>
+        <label class="chip"><input type="radio" name="sorun" value="Ses yapıyor"><span>Ses yapıyor</span></label>
+        <label class="chip"><input type="radio" name="sorun" value="Yıllık bakım"><span>Yıllık bakım</span></label>
+        <label class="chip"><input type="radio" name="sorun" value="Yeni kombi / değişim"><span>Yeni kombi / değişim</span></label>
+      </div>
+      <div class="chips m-klima">
+        <label class="chip"><input type="radio" name="sorun" value="Soğutmuyor"><span>Soğutmuyor</span></label>
+        <label class="chip"><input type="radio" name="sorun" value="Isıtmıyor"><span>Isıtmıyor</span></label>
+        <label class="chip"><input type="radio" name="sorun" value="Su damlatıyor"><span>Su damlatıyor</span></label>
+        <label class="chip"><input type="radio" name="sorun" value="Kötü koku"><span>Kötü koku</span></label>
+        <label class="chip"><input type="radio" name="sorun" value="Ses yapıyor"><span>Ses yapıyor</span></label>
+        <label class="chip"><input type="radio" name="sorun" value="Yıllık bakım"><span>Yıllık bakım</span></label>
+        <label class="chip"><input type="radio" name="sorun" value="Montaj / taşıma"><span>Montaj / taşıma</span></label>
+        <label class="chip"><input type="radio" name="sorun" value="Yeni klima"><span>Yeni klima</span></label>
+      </div>
+      <div class="row2">
+        <div><label class="lbl" for="mah">3 · Mahalle</label><select class="in" id="mah" name="mah"><option value="">Seçin</option></select></div>
+        <div><label class="lbl" for="ad">4 · Adınız <small>(isteğe bağlı)</small></label><input class="in" id="ad" name="ad" type="text" autocomplete="name" placeholder="Ad Soyad"></div>
+      </div>
+      <button class="btn btn-wa" type="submit"><svg class="i"><use href="#i-wa"/></svg>WhatsApp ile Gönder</button>
+      <p class="fine">Mesaj hazır şekilde WhatsApp'ta açılır, siz sadece gönderirsiniz.</p>
+    </form>
+  </div>
+</section>
+
+<section class="sec" id="nasil">
+  <div class="w">
+    <div class="sh">
+      <span class="eb">Nasıl çalışırız</span>
+      <h2>Sürpriz yok, bekletme yok</h2>
+    </div>
+    <div class="steps">
+      <div class="step rv"><b class="n">1</b><h3>Bize ulaşın</h3><p>Arayın ya da WhatsApp'tan yazın. İsterseniz fotoğraf atın.</p></div>
+      <div class="step rv"><b class="n">2</b><h3>Aynı gün gelelim</h3><p>İnegöl merkezde çoğu zaman aynı gün kapınızdayız.</p></div>
+      <div class="step hl rv"><b class="n">3</b><h3>Önce fiyat, sonra iş</h3><p>Arızayı tespit eder, ücreti işe başlamadan söyleriz.</p></div>
+      <div class="step rv"><b class="n">4</b><h3>Garantili teslim</h3><p>Temiz çalışır, işçiliğimize 1 yıl garanti veririz.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ÖRNEK YORUMLAR — yayına almadan önce firmanın gerçek Google yorumlarıyla değiştir. -->
+<section class="sec pt0" id="yorumlar">
+  <div class="w">
+    <div class="sh-row">
+      <div class="sh"><span class="eb">Müşteri yorumları</span><h2>İnegöl bize güveniyor</h2></div>
+      <div class="score"><b>4.9</b><div><span class="stars">★★★★★</span><small>320+ değerlendirme</small></div></div>
+    </div>
+    <div class="rev">
+      <figure class="rc"><span class="stars">★★★★★</span><blockquote>“Gece kombi arıza verdi, sabah 9'da usta kapıdaydı. Fiyatı baştan söylediler, aynen öyle oldu.”</blockquote><figcaption><span class="av">AK</span><b>Ayşe K.</b><small>Kemalpaşa Mah.</small></figcaption></figure>
+      <figure class="rc"><span class="stars">★★★★★</span><blockquote>“Klima montajını çok temiz yaptılar, duvarda tek iz yok. Kullanımını da tek tek anlattılar.”</blockquote><figcaption><span class="av">MT</span><b>Mehmet T.</b><small>Cuma Mah.</small></figcaption></figure>
+      <figure class="rc"><span class="stars">★★★★★</span><blockquote>“Petek temizliğinden sonra ev çok daha çabuk ısınıyor. Güler yüzlü ve dakik ekip, tavsiye ederim.”</blockquote><figcaption><span class="av">ED</span><b>Emre D.</b><small>Yenice Mah.</small></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="sec pt0" id="bolgeler">
+  <div class="w areas">
+    <div>
+      <span class="eb">Hizmet bölgeleri</span>
+      <h2>İnegöl'ün her mahallesindeyiz</h2>
+      <p class="mut" style="margin-top:12px">Merkez mahallelerden köylere kadar tüm İnegöl'e servis veriyoruz. Mahallenizi listede göremediyseniz yine de arayın.</p>
+      <ul class="mah">
+        <li>Akhisar</li><li>Baykoca</li><li>Burhaniye</li><li>Cerrah</li><li>Cuma</li><li>Cumhuriyet</li><li>Ertuğrulgazi</li><li>Esentepe</li><li>Fatih</li><li>Hamidiye</li><li>Huzur</li><li>Karalar</li><li>Kemalpaşa</li><li>Kurşunlu</li><li>Mahmudiye</li><li>Mesudiye</li><li>Orhaniye</li><li>Osmaniye</li><li>Sinanbey</li><li>Süleymaniye</li><li>Turgutalp</li><li>Yenice</li><li class="more">+ tüm köyler</li>
+      </ul>
+    </div>
+    <iframe class="map" title="İnegöl haritası" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=%C4%B0neg%C3%B6l%2C%20Bursa&z=13&output=embed"></iframe>
+  </div>
+</section>
+
+<section class="sec alt" id="sss">
+  <div class="w faqw">
+    <div class="sh">
+      <span class="eb">Sıkça sorulanlar</span>
+      <h2>Aklınıza takılanlar</h2>
+      <p>Cevabı burada yoksa bir mesaj uzağınızdayız.</p>
+      <a class="btn btn-wa" style="margin-top:22px" href="#talep" data-wa="bir sorum var:"><svg class="i"><use href="#i-wa"/></svg>Soru sor</a>
+    </div>
+    <div>
+      <details><summary>Kombi bakımı ne sıklıkla yapılmalı?</summary><p>Yılda bir kez, tercihen ısıtma sezonu başlamadan (Eylül–Kasım). Bakımlı kombi daha az gaz yakar, arıza riski düşer.</p></details>
+      <details><summary>Servis ücretini önceden öğrenebilir miyim?</summary><p>Evet. Arızayı yerinde tespit edip ücreti işe başlamadan söylüyoruz; onayınız olmadan işlem yapmıyoruz.</p></details>
+      <details><summary>Hangi markalara servis veriyorsunuz?</summary><p>Piyasadaki tüm kombi ve klima markalarına bakım, onarım ve montaj hizmeti veriyoruz.</p></details>
+      <details><summary>Hafta sonu ve gece geliyor musunuz?</summary><p>Pazartesi–Cumartesi 08:00–20:00 arası çalışıyoruz. Acil arızalar için 7/24 ulaşabilirsiniz.</p></details>
+      <details><summary>Yaptığınız işe garanti var mı?</summary><p>Evet, işçiliğimize 1 yıl garanti veriyoruz. Değişen parçalar faturalıdır.</p></details>
+      <details><summary>Klimaya ne zaman gaz dolumu gerekir?</summary><p>Klima iyi soğutmuyorsa ya da iç ünitede buzlanma varsa gaz eksik olabilir. Önce kaçağı bulup gideriyor, sonra dolum yapıyoruz.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="w">
+    <h2><span class="m-kombi">Üşümeyin, beklemeyin.</span><span class="m-klima">Terlemeyin, beklemeyin.</span></h2>
+    <p>Bir telefon kadar yakınız. <span data-firma>Yıldız Isı</span> ile İnegöl'ün her yerine aynı gün servis.</p>
+    <a class="bigtel grad" href="tel:+905320000000" data-tel>0532 000 00 00</a>
+    <div class="cta">
+      <a class="btn btn-a" href="tel:+905320000000"><svg class="i"><use href="#i-phone"/></svg>Hemen Ara</a>
+      <a class="btn btn-wa" href="#talep" data-wa=""><svg class="i"><use href="#i-wa"/></svg>WhatsApp</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="w">
+    <div class="ft">
+      <div>
+        <div class="logo">
+          <span class="mark"><svg class="i m-kombi"><use href="#i-flame"/></svg><svg class="i m-klima"><use href="#i-snow"/></svg></span>
+          <span class="lt"><b data-firma>Yıldız Isı</b><small>Kombi & Klima Servisi</small></span>
+        </div>
+        <p>İnegöl ve çevresinde kombi, klima ve petek servisi. Tüm markalar, garantili işçilik.</p>
+      </div>
+      <div>
+        <h4>İletişim</h4>
+        <ul>
+          <li><svg class="i"><use href="#i-pin"/></svg>Örnek Mah. Örnek Cad. No:1, İnegöl / Bursa</li>
+          <li><svg class="i"><use href="#i-phone"/></svg><a href="tel:+905320000000" data-tel>0532 000 00 00</a></li>
+          <li><svg class="i"><use href="#i-clock"/></svg>Pzt–Cmt 08:00–20:00 · Acil 7/24</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Hizmetler</h4>
+        <ul>
+          <li><a href="#hizmetler">Kombi bakım & tamir</a></li>
+          <li><a href="#hizmetler">Petek temizliği</a></li>
+          <li><a href="#hizmetler">Klima montaj & bakım</a></li>
+          <li><a href="#talep">Servis talebi</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="fb">
+      <span>© <span id="yil">2026</span> <span data-firma>Yıldız Isı</span>. Tüm hakları saklıdır.</span>
+      <span>Marka adları yalnızca servis verilen cihazları belirtmek içindir.</span>
+    </div>
+  </div>
+</footer>
+
+<nav class="mbar" aria-label="Hızlı iletişim">
+  <a class="btn btn-a" href="tel:+905320000000"><svg class="i"><use href="#i-phone"/></svg>Ara</a>
+  <a class="btn btn-wa" href="#talep" data-wa=""><svg class="i"><use href="#i-wa"/></svg>WhatsApp</a>
+</nav>
+<a class="fab" href="#talep" data-wa="" aria-label="WhatsApp'tan yazın"><svg class="i"><use href="#i-wa"/></svg></a>
+
+<script>
+const $ = s => document.querySelector(s), $$ = s => document.querySelectorAll(s);
+const q = new URLSearchParams(location.search);
+const num = t => t.replace(/\D/g, '').replace(/^(90|0)/, '').slice(-10);
+
+// Firma + telefon: URL parametresi varsa onu, yoksa HTML'deki değeri kullan
+const firma = q.get('firma') || $('[data-firma]').textContent;
+const tel = num(q.get('tel') || $('a[href^="tel:"]').href);
+const wa = num(q.get('wa') || tel);
+const telTxt = `0${tel.slice(0, 3)} ${tel.slice(3, 6)} ${tel.slice(6, 8)} ${tel.slice(8)}`;
+const waUrl = m => `https://wa.me/90${wa}?text=${encodeURIComponent(`Merhaba ${firma}, ${m}`)}`;
+
+document.title = `${firma} | İnegöl Kombi & Klima Servisi`;
+$$('[data-firma]').forEach(e => e.textContent = firma);
+$$('[data-tel]').forEach(e => e.textContent = telTxt);
+$$('a[href^="tel:"]').forEach(a => a.href = 'tel:+90' + tel);
+$$('a[data-wa]').forEach(a => {
+  a.href = waUrl(a.dataset.wa || 'servis hakkında bilgi almak istiyorum.');
+  a.target = '_blank'; a.rel = 'noopener';
+});
+
+// Kombi / klima teması: URL > mevsim (Mayıs–Eylül klima)
+const setMod = m => {
+  document.documentElement.dataset.mod = m;
+  $$('[data-set-mod]').forEach(b => b.setAttribute('aria-pressed', b.dataset.setMod === m));
+};
+const ay = new Date().getMonth();
+setMod(['kombi', 'klima'].includes(q.get('mod')) ? q.get('mod') : (ay >= 4 && ay <= 8 ? 'klima' : 'kombi'));
+$$('[data-set-mod]').forEach(b => b.onclick = () => setMod(b.dataset.setMod));
+
+// Açık mı? (Pzt–Cmt 08–20)
+const n = new Date(), h = n.getHours();
+$('#durum').textContent = n.getDay() && h >= 8 && h < 20 ? 'Şu an açığız' : 'Acil hat 7/24 açık';
+$('#yil').textContent = n.getFullYear();
+
+// Mahalle listesi tek yerden: bölgeler bölümündeki liste
+[...$$('.mah li:not(.more)')].map(li => li.textContent).concat('Diğer / Köy')
+  .forEach(t => $('#mah').add(new Option(t)));
+
+// Servis talebi → hazır WhatsApp mesajı
+$('#talep-f').onsubmit = e => {
+  e.preventDefault();
+  const f = e.target, m = document.documentElement.dataset.mod;
+  const s = f.querySelector(`.m-${m} input:checked`), ad = f.ad.value.trim();
+  const msg = `${m === 'kombi' ? 'kombim' : 'klimam'} için servis talebim var.\n• Sorun: ${s ? s.value : 'Belirtmedim'}\n• Mahalle: ${f.mah.value || 'Belirtmedim'}${ad ? '\n• İsim: ' + ad : ''}`;
+  window.open(waUrl(msg), '_blank', 'noopener');
+};
+</script>
+</body>
+</html>
