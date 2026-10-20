@@ -360,7 +360,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 
 
 /* Paketler */
-@media (min-width: 760px) { .tiers { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 760px) { .tiers { grid-template-columns: repeat(3, 1fr); } .tiers.tek { grid-template-columns: minmax(0, 560px); justify-content: center; } }
 .tiers .card { padding-top: 30px; }
 .tiers .price { color: var(--muted); font-size: .95rem; }
 .tiers .price b { margin-right: 4px; color: var(--fg); font-size: clamp(2rem, 4vw, 2.6rem); font-weight: 650; letter-spacing: -.04em; }
